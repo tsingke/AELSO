@@ -489,7 +489,7 @@ A machine-readable [`CITATION.cff`](CITATION.cff) is included in this repository
 
 ## 8. License and contact
 
-The implementation is released under the [MIT License](LICENSE). The figures in `figures/` are reproduced from the manuscript and are provided here for illustration; please cite the manuscript when referring to them.
+The implementation is released under the [MIT License](LICENSE). The figures in `figures/` are provided here for illustration; please cite the work when referring to them. See [NOTICE.md](NOTICE.md) for the terms that apply to the code and the figures.
 
 Questions about the algorithm, the experiments, or the code are welcome at **[tsingke@sdnu.edu.cn](mailto:tsingke@sdnu.edu.cn)**.
 

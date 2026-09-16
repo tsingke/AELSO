@@ -1,8 +1,6 @@
 MIT License
 
 Copyright (c) 2026 Qingke Zhang, Xiaolin Wang
-School of Computer Science and Artificial Intelligence,
-Shandong Normal University, Jinan 250358, China
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,20 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
---------------------------------------------------------------------------
-TERMS OF USE FOR THIS REPOSITORY
-
-This repository is provided as an academic companion to the manuscript
-
-  "AELSO: Adaptive Equilibrium Learning Swarm Optimizer for Large-Scale
-   Global Optimization and Engineering Applications"
-
-The figures in the figures/ directory are reproduced from the manuscript and
-are intended for illustration within this repository only. Please cite the
-manuscript if you refer to them.
-
-Commercial use of the AELSO.m implementation is permitted under the MIT terms
-above, provided that the copyright notice and this permission notice are
-retained in all copies or substantial portions of the Software, and that the
-manuscript is cited in any resulting academic publication.
