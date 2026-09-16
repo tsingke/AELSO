@@ -4,7 +4,7 @@
 
 <p><b>Adaptive Equilibrium Learning Swarm Optimizer</b></p>
 
-<p><i>Full-dimensional large-scale optimization without variable decomposition</i></p>
+<p><i>Full-dimensional large-scale global optimization without variable decomposition</i></p>
 
 <p><img src="assets/badge-paradigm.svg" alt="decomposition-free">&nbsp;<img src="assets/badge-benchmarks.svg" alt="CEC benchmarks">&nbsp;<img src="assets/badge-matlab.svg" alt="MATLAB">&nbsp;<img src="assets/badge-license.svg" alt="MIT license"></p>
 
@@ -34,20 +34,20 @@
 
 ## Contents
 
-1. [Why this work](#1-why-this-work)
-2. [The idea in one paragraph](#2-the-idea-in-one-paragraph)
-3. [What is new](#3-what-is-new)
-4. [How the two mechanisms fit together](#4-how-the-two-mechanisms-fit-together)
-5. [Benchmark evidence](#5-benchmark-evidence)
-6. [Applications beyond benchmarks](#6-applications-beyond-benchmarks)
-7. [Source code](#7-source-code)
-8. [Citation](#8-citation)
-9. [Acknowledgments](#9-acknowledgments)
+1. [Background and motivation](#1-background-and-motivation)
+2. [Method overview](#2-method-overview)
+3. [Key contributions](#3-key-contributions)
+4. [Framework and mechanisms](#4-framework-and-mechanisms)
+5. [Benchmark evaluation](#5-benchmark-evaluation)
+6. [Application case studies](#6-application-case-studies)
+7. [Reference implementation](#7-reference-implementation)
+8. [How to cite](#8-how-to-cite)
+9. [Funding and acknowledgments](#9-funding-and-acknowledgments)
 10. [License and contact](#10-license-and-contact)
 
 <br>
 
-## 1. Why this work
+## 1. Background and motivation
 
 Metaheuristics lose their footing as dimensionality climbs into the thousands. The reason is not a shortage of candidate solutions but a shortage of *information*: a fixed evaluation budget spreads thinner and thinner across the search space, so each new objective value tells the optimizer less about where to go next.
 
@@ -59,13 +59,13 @@ AELSO takes the other branch. It keeps the search **full-dimensional** and attac
 
 <br>
 
-## 2. The idea in one paragraph
+## 2. Method overview
 
 AELSO runs two complementary mechanisms in sequence within every iteration and gives each of them a distinct job. The first squeezes extra precision out of the solutions that already lead the swarm. The second decides, individual by individual, who is entitled to learn, from whom, and how much — with the strictness of that decision relaxing or tightening as the evaluation budget is consumed. Refinement and redistribution therefore reinforce each other inside a single loop instead of competing for the same evaluations.
 
 <br>
 
-## 3. What is new
+## 3. Key contributions
 
 Three design choices separate AELSO from the usual large-scale toolkit.
 
@@ -79,7 +79,7 @@ Taken together, the three points describe a single shift: the algorithm's behavi
 
 <br>
 
-## 4. How the two mechanisms fit together
+## 4. Framework and mechanisms
 
 The overall control flow is shown below. After ranking the swarm, each iteration first applies the refinement mechanism and then the cooperative-evolution mechanism, before the budget check sends control back to the top.
 
@@ -111,7 +111,7 @@ The two mechanisms are detailed separately below.
 
 <br>
 
-## 5. Benchmark evidence
+## 5. Benchmark evaluation
 
 AELSO was evaluated on the two standard large-scale suites under a single common protocol. All eleven algorithms — AELSO plus ten representative LSGO methods — received the same evaluation budget, the same dimensionality and the same number of independent runs, and the comparison was backed by Wilcoxon rank-sum tests together with a Friedman ranking over the whole suite.
 
@@ -136,7 +136,7 @@ AELSO takes the best overall Friedman rank on both suites. The margin is not bui
 
 <br>
 
-## 6. Applications beyond benchmarks
+## 6. Application case studies
 
 Benchmark suites measure solution quality, not whether an optimizer survives contact with a real model. AELSO was therefore embedded into two application problems whose decision structures differ substantially from each other.
 
@@ -154,7 +154,7 @@ Both applications were run under a fixed protocol with repeated independent tria
 
 <br>
 
-## 7. Source code
+## 7. Reference implementation
 
 The reference implementation is a single self-contained MATLAB function. It has no external dependencies beyond the objective function handle supplied by the caller, and it reproduces the CEC'2010 / CEC'2013 configuration reported in the manuscript.
 
@@ -494,7 +494,7 @@ end
 
 <br>
 
-## 8. Citation
+## 8. How to cite
 
 If AELSO is useful in your research, please cite this work:
 
@@ -514,7 +514,7 @@ A machine-readable [`CITATION.cff`](CITATION.cff) is included in this repository
 
 <br>
 
-## 9. Acknowledgments
+## 9. Funding and acknowledgments
 
 This work is supported by the National Natural Science Foundation of China (Grant No. 62006144).
 
