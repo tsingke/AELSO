@@ -1,0 +1,48 @@
+cff-version: 1.2.0
+message: "If you use this code or refer to this work, please cite the manuscript below."
+title: "AELSO: Adaptive Equilibrium Learning Swarm Optimizer for Large-Scale Global Optimization and Engineering Applications"
+type: software
+license: MIT
+repository-code: "https://github.com/tsingke/AELSO"
+keywords:
+  - large-scale global optimization
+  - swarm intelligence
+  - particle swarm optimization
+  - adaptive equilibrium learning
+  - multiple sequence alignment
+  - multilevel thresholding image segmentation
+authors:
+  - family-names: Wang
+    given-names: Xiaolin
+    orcid: "https://orcid.org/0009-0005-3768-7605"
+  - family-names: Zhang
+    given-names: Qingke
+    orcid: "https://orcid.org/0000-0003-3960-172X"
+    email: tsingke@sdnu.edu.cn
+    affiliation: "School of Computer Science and Artificial Intelligence, Shandong Normal University, Jinan 250358, China"
+  - family-names: Zhou
+    given-names: Guanghui
+    orcid: "https://orcid.org/0009-0000-8437-7910"
+  - family-names: Lyu
+    given-names: Lei
+    orcid: "https://orcid.org/0000-0001-9521-6039"
+  - family-names: Li
+    given-names: Junqing
+    orcid: "https://orcid.org/0000-0002-3617-6708"
+    affiliation: "School of Mathematics, Yunnan Normal University, Kunming 650500, China"
+preferred-citation:
+  type: article
+  title: "AELSO: Adaptive Equilibrium Learning Swarm Optimizer for Large-Scale Global Optimization and Engineering Applications"
+  authors:
+    - family-names: Wang
+      given-names: Xiaolin
+    - family-names: Zhang
+      given-names: Qingke
+    - family-names: Zhou
+      given-names: Guanghui
+    - family-names: Lyu
+      given-names: Lei
+    - family-names: Li
+      given-names: Junqing
+  journal: "Applied Mathematics and Computation"
+  note: "Manuscript under review."
