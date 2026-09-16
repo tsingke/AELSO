@@ -2,13 +2,13 @@
 
 <h1>AELSO</h1>
 
-<p><b>Adaptive Equilibrium Learning Swarm Optimizer</b></p>
+<p><b>自适应均衡学习群智能优化算法</b></p>
 
-<p><i>Full-dimensional large-scale optimization without variable decomposition</i></p>
+<p><i>不依赖变量分解的全维大规模优化</i></p>
 
-<p><img src="assets/badge-paradigm.svg" alt="decomposition-free">&nbsp;<img src="assets/badge-benchmarks.svg" alt="CEC benchmarks">&nbsp;<img src="assets/badge-matlab.svg" alt="MATLAB">&nbsp;<img src="assets/badge-license.svg" alt="MIT license"></p>
+<p><img src="assets/badge-paradigm.svg" alt="不依赖变量分解">&nbsp;<img src="assets/badge-benchmarks.svg" alt="CEC 基准测试">&nbsp;<img src="assets/badge-matlab.svg" alt="MATLAB">&nbsp;<img src="assets/badge-license.svg" alt="MIT 许可"></p>
 
-<p><b>English</b> &nbsp;·&nbsp; <a href="README.zh-CN.md">简体中文</a></p>
+<p><a href="README.md">English</a> &nbsp;·&nbsp; <b>简体中文</b></p>
 
 </div>
 
@@ -16,159 +16,158 @@
 
 | | |
 |:--|:--|
-| **Manuscript** | AELSO: Adaptive Equilibrium Learning Swarm Optimizer for Large-Scale Global Optimization and Engineering Applications |
-| **Authors** | Xiaolin Wang, **Qingke Zhang**\*, Guanghui Zhou, Lei Lyu, Junqing Li |
-| **Affiliation** | <sup>1</sup> School of Computer Science and Artificial Intelligence, Shandong Normal University, Jinan 250358, China<br><sup>2</sup> School of Mathematics, Yunnan Normal University, Kunming 650500, China |
-| **Corresponding author** | Prof. Qingke Zhang — [tsingke@sdnu.edu.cn](mailto:tsingke@sdnu.edu.cn) |
+| **论文题目** | AELSO: Adaptive Equilibrium Learning Swarm Optimizer for Large-Scale Global Optimization and Engineering Applications |
+| **作者** | 王晓琳、**张庆科**\*、周光辉、吕蕾、李俊青 |
+| **单位** | <sup>1</sup> 山东师范大学 计算机与人工智能学院，济南 250358<br><sup>2</sup> 云南师范大学 数学学院，昆明 650500 |
+| **通讯作者** | 张庆科 教授 — [tsingke@sdnu.edu.cn](mailto:tsingke@sdnu.edu.cn) |
 
 <br>
 
-**Highlights**
+**要点速览**
 
-- Full-dimensional large-scale optimization with no variable decomposition at any stage.
-- Update activation and learning scope governed by budget progress and population quality rather than by fixed schedules.
-- Refinement and propagation ordered inside one loop, so the two stages reinforce instead of compete.
-- Best overall Friedman rank on both CEC'2010 and CEC'2013 (11 algorithms, 30 independent runs each).
-
-<br>
-
-## Contents
-
-1. [Why this work](#1-why-this-work)
-2. [The idea in one paragraph](#2-the-idea-in-one-paragraph)
-3. [What is new](#3-what-is-new)
-4. [How the two mechanisms fit together](#4-how-the-two-mechanisms-fit-together)
-5. [Benchmark evidence](#5-benchmark-evidence)
-6. [Applications beyond benchmarks](#6-applications-beyond-benchmarks)
-7. [Source code](#7-source-code)
-8. [Citation](#8-citation)
-9. [Acknowledgments](#9-acknowledgments)
-10. [License and contact](#10-license-and-contact)
+- 全维大规模优化，全流程不做任何变量分解。
+- 更新激活与学习范围由预算进度和种群质量共同决定，而非固定的日程安排。
+- 精炼与传播在同一循环内排序执行，使两个阶段相互加强而非相互竞争。
+- 在 CEC'2010 与 CEC'2013 两套基准上均取得最优的总体 Friedman 排名（11 个算法，各 30 次独立运行）。
 
 <br>
 
-## 1. Why this work
+## 目录
 
-Metaheuristics lose their footing as dimensionality climbs into the thousands. The reason is not a shortage of candidate solutions but a shortage of *information*: a fixed evaluation budget spreads thinner and thinner across the search space, so each new objective value tells the optimizer less about where to go next.
-
-Under that pressure, population-based search faces a genuine dilemma. Concentrate on the few solutions that already look promising and the swarm converges to a local basin long before the budget runs out. Spread the learning broadly instead and the budget is consumed without any region ever being polished to completion.
-
-A large part of the literature answers this by **decomposing** the problem — splitting the variables into groups and optimizing the groups separately. That works well when the grouping is accurate, but the grouping step itself is a hard problem, and a poor partition can cap the achievable solution quality no matter how good the underlying optimizer is.
-
-AELSO takes the other branch. It keeps the search **full-dimensional** and attacks the dilemma from the opposite direction: rather than restructuring the problem, it regulates how reliable search information is produced and how far that information is allowed to travel through the population.
-
-<br>
-
-## 2. The idea in one paragraph
-
-AELSO runs two complementary mechanisms in sequence within every iteration and gives each of them a distinct job. The first squeezes extra precision out of the solutions that already lead the swarm. The second decides, individual by individual, who is entitled to learn, from whom, and how much — with the strictness of that decision relaxing or tightening as the evaluation budget is consumed. Refinement and redistribution therefore reinforce each other inside a single loop instead of competing for the same evaluations.
+1. [为什么做这项工作](#1-为什么做这项工作)
+2. [一句话概括核心思想](#2-一句话概括核心思想)
+3. [创新之处](#3-创新之处)
+4. [两个机制如何配合](#4-两个机制如何配合)
+5. [基准测试结果](#5-基准测试结果)
+6. [基准之外的应用](#6-基准之外的应用)
+7. [源代码](#7-源代码)
+8. [引用方式](#8-引用方式)
+9. [致谢](#9-致谢)
+10. [许可与联系方式](#10-许可与联系方式)
 
 <br>
 
-## 3. What is new
+## 1. 为什么做这项工作
 
-Three design choices separate AELSO from the usual large-scale toolkit.
+当维数上升到数千维时，元启发式算法会逐渐失去立足点。原因不在于候选解不够多，而在于**信息**不足：固定的评价预算被摊薄到整个搜索空间之后，每一个新的目标函数值所能告诉优化器的"下一步该往哪走"的信息越来越少。
 
-**The update rule is driven by search state rather than by a fixed schedule.** Whether an individual is updated at all, and how far its learning sources are allowed to reach, are both decided from signals the run produces on its own: how much of the evaluation budget has been spent, and how the current population is distributed in quality. Update opportunities are steered toward the solutions that still need adjusting instead of being spread uniformly across the swarm.
+在这种压力下，基于种群的搜索面临一个真实的困境。若只集中在少数几个看起来有希望的解上，群体会在预算耗尽之前很久就收敛到某个局部盆地；若把学习范围铺得很开，预算则会在任何区域被真正打磨完成之前就被消耗殆尽。
 
-**Refinement and propagation are ordered rather than merged.** Hybrid schemes usually let refinement and redistribution compete for the same evaluations. AELSO instead runs them in sequence inside every iteration: the elite is polished first, and the improved information is released into the population only afterwards. Refinement thereby becomes the input to propagation rather than its rival, and the ablation study reports that disabling either stage degrades overall performance — the two are complementary, not redundant.
+文献中的很大一部分通过**分解**来回答这个问题——把变量切成若干组分别优化。当分组准确时，这样做效果很好；但分组本身就是一个困难问题，而且无论底层优化器多强，一个糟糕的划分都会封住解质量的上限。
 
-**The framework stays decomposition-free by construction.** No variable grouping is ever built, so there is no partition to get wrong, no group count to choose, and no accuracy ceiling imposed by a poor split. The whole evaluation budget goes into search rather than into estimating a structure that the optimizer would then have to trust.
-
-Taken together, the three points describe a single shift: the algorithm's behaviour is set by the search as it unfolds, and its two stages are arranged so that the gains from one become the working material of the other.
+AELSO 选择另一条路。它让搜索始终保持**全维**，并从相反的方向处理上述困境：不去重构问题，而是调节可靠的搜索信息如何产生，以及这些信息被允许在种群中传播多远。
 
 <br>
 
-## 4. How the two mechanisms fit together
+## 2. 一句话概括核心思想
 
-The overall control flow is shown below. After ranking the swarm, each iteration first applies the refinement mechanism and then the cooperative-evolution mechanism, before the budget check sends control back to the top.
+AELSO 在每次迭代中依次运行两个互补的机制，并让它们各司其职。第一个机制从已经领先群体的那些解中再榨出一点精度；第二个机制则逐个个体地决定：谁有权学习、向谁学习、学多少——而这个决定的严格程度会随着评价预算的消耗而放松或收紧。于是"精炼"与"再分配"在同一个循环内相互加强，而不是争夺同一批评价次数。
+
+<br>
+
+## 3. 创新之处
+
+与常见的大规模优化方案相比，AELSO 有三个不同之处。
+
+**更新规则由搜索状态驱动，而非固定日程。** 一个个体是否被更新、它的学习来源被允许伸得多远，都由运行过程自身产生的信号决定：评价预算已经消耗了多少，以及当前种群在质量上的分布如何。更新机会被有意导向那些仍然需要调整的解，而不是均匀地摊给整个群体。
+
+**精炼与传播是排序关系，而非混合关系。** 混合式方案通常让"精炼"和"再分配"争夺同一批评价次数。AELSO 则让二者在同一次迭代中先后执行：先打磨精英，再把改善后的信息释放到种群中。精炼因此成为传播的输入而不是它的竞争者——消融实验表明，去掉任一阶段都会造成整体性能下降，二者是互补的而非冗余的。
+
+**该框架在构造上就是无分解的。** 全程不构建任何变量分组，因此没有会出错的划分、没有需要选择的组数，也不存在由糟糕划分带来的精度天花板。整个评价预算都用于搜索，而不是用于估计一个随后还得去信任的结构。
+
+三点合起来描述的其实是一个转向：算法的行为由逐步展开的搜索过程本身决定，而它的两个阶段被安排成「一个阶段的收益正是另一个阶段的工作材料」。
+
+<br>
+
+## 4. 两个机制如何配合
+
+整体控制流程如下。每次迭代在完成种群排序之后，先执行精炼机制，再执行协同进化机制，最后经预算检查把控制权交回循环顶部。
 
 <p align="center">
-  <img src="figures/fig1_framework.png" alt="Overall flowchart of AELSO" width="86%">
+  <img src="figures/fig1_framework.png" alt="AELSO 整体流程图" width="86%">
 </p>
 
 <p align="center">
-  <em><b>Figure 1.</b> Overall control flow of AELSO. Ranking, elite refinement and cooperative evolution are interleaved inside one loop, with both phases drawing from the same evaluation budget.</em>
+  <em><b>图 1.</b> AELSO 的整体控制流程。排序、精英精炼与协同进化交织在同一个循环中，两个阶段共享同一份评价预算。</em>
 </p>
 
-The two mechanisms are detailed separately below.
+两个机制分别详述如下。
 
-**Core-solution perturbation (CSP)** works only on the current elite set, and that set shrinks steadily as the run progresses. A candidate is produced by moving a *sparse* subset of dimensions — most coordinates are left untouched — and it replaces its parent only if it strictly improves on it. Sparsity keeps the elite's existing structure intact while allowing slow, low-risk gains; strict acceptance means the elite can never drift downhill. Figure 2a shows the sequence: elite selection, perturbation of the targeted dimensions, clamping to the search bounds, and acceptance.
+**核心解扰动（Core-solution perturbation, CSP）**只作用于当前精英集，而该集合随运行推进不断收缩。候选解通过移动一个*稀疏*的维度子集产生——绝大多数坐标保持不变——并且只有在严格优于父代时才会替换父代。稀疏性让精英已有的结构得以保持，同时允许缓慢、低风险的收益；严格接受则意味着精英永远不会向下漂移。图 2a 给出了这一序列：精英选择、对目标维度的扰动、向搜索边界的截断，以及接受判定。
 
-**Dual-exemplar cooperative evolution (DCE)** then handles the rest of the swarm. Individuals are ranked from worst to best and the activation probability is set to fall as quality rises, so the solutions that still need adjustment are the ones revised most often; a small floor keeps every individual eligible, so none is frozen out entirely. When an update does fire, the individual draws on *two* exemplars rather than one — the best of a small randomly sampled subset, together with a second drawn at random from the elite pool — which keeps a single dominant attractor from swallowing the population. A separate exploration schedule governs whether a non-elite looks toward the leading edge of the swarm as a whole or restricts itself to the elite pool, and that schedule tightens as the budget is spent.
+**双范例协同进化（Dual-exemplar cooperative evolution, DCE）**随后处理群体中的其余个体。个体按从差到好的顺序排序，激活概率被设为随质量上升而下降，因此最常被修订的正是那些仍需要调整的解；一个很小的下界保证每个个体都有被激活的机会，不会被完全冻结。当更新真正触发时，该个体借鉴*两个*范例而非一个——一个来自小规模随机采样子集中的最优者，另一个从精英池中随机抽取——从而避免单一主导吸引子吞掉整个种群。另有一条探索日程决定非精英个体是朝向整个群体的领先前沿学习，还是只在精英池内学习，而这条日程随预算的消耗而收紧。
 
 <p align="center">
-  <img src="figures/fig2a_csp.png" alt="Core-solution perturbation framework" width="88%">
+  <img src="figures/fig2a_csp.png" alt="核心解扰动框架" width="88%">
   <br>
-  <em><b>Figure 2a.</b> Core-solution perturbation. Only a sparse subset of dimensions is disturbed, and a candidate is retained only on strict improvement over its parent.</em>
+  <em><b>图 2a.</b> 核心解扰动。仅扰动一个稀疏的维度子集，候选解只有在严格优于父代时才被保留。</em>
 </p>
 
 <p align="center">
-  <img src="figures/fig2b_dce.png" alt="Dual-exemplar cooperative evolution framework" width="88%">
+  <img src="figures/fig2b_dce.png" alt="双范例协同进化框架" width="88%">
   <br>
-  <em><b>Figure 2b.</b> Dual-exemplar cooperative evolution. Rank decides whether an update is triggered; the learning candidate set and the two exemplars are then assembled and the velocity is updated.</em>
+  <em><b>图 2b.</b> 双范例协同进化。名次决定是否触发更新；随后组装学习候选集与两个范例，并更新速度。</em>
 </p>
 
 <br>
 
-## 5. Benchmark evidence
+## 5. 基准测试结果
 
-AELSO was evaluated on the two standard large-scale suites under a single common protocol. All eleven algorithms — AELSO plus ten representative LSGO methods — received the same evaluation budget, the same dimensionality and the same number of independent runs, and the comparison was backed by Wilcoxon rank-sum tests together with a Friedman ranking over the whole suite.
+AELSO 在两套标准大规模基准上、于统一的实验协议下完成评测。全部十一种算法——AELSO 与十种代表性 LSGO 方法——使用相同的评价预算、相同的维数和相同次数的独立运行，比较结果由 Wilcoxon 秩和检验与覆盖整套基准的 Friedman 排名共同支撑。
 
-| Suite | Functions | Dimension | Budget | Runs | AELSO Friedman rank | Runner-up |
+| 基准套件 | 函数个数 | 维数 | 预算 | 独立运行 | AELSO 的 Friedman 排名 | 第二名 |
 |:--|:--:|:--:|:--:|:--:|:--:|:--|
-| CEC'2010 LSGO | 20 | 1000 | 3 × 10⁶ FEs | 30 | **2.90 — 1st of 11** | APSO_DEE (3.43) |
-| CEC'2013 LSGO | 15 | 1000 | 3 × 10⁶ FEs | 30 | **3.15 — 1st of 11** | APSO_DEE (4.29) |
+| CEC'2010 LSGO | 20 | 1000 | 3 × 10⁶ 次评价 | 30 | **2.90 — 11 个算法中第 1** | APSO_DEE (3.43) |
+| CEC'2013 LSGO | 15 | 1000 | 3 × 10⁶ 次评价 | 30 | **3.15 — 11 个算法中第 1** | APSO_DEE (4.29) |
 
-AELSO takes the best overall Friedman rank on both suites. The margin is not built on a handful of easy functions: the pairwise significance tests put AELSO ahead of **every one of the ten competitors on both suites**, with more wins than losses against each of them — between 11 and 18 of the 20 CEC'2010 functions, and between 8 and 13 of the 15 CEC'2013 functions. Convergence and parameter-sensitivity studies accompany the comparison.
+AELSO 在两套基准上都取得最优的总体 Friedman 排名。这一优势并非建立在少数几个容易的函数上：成对显著性检验显示，AELSO 在**两套基准上都领先于全部十个对比算法**，且在每套基准上胜出的函数数都多于落败的函数数——在 CEC'2010 的 20 个函数中胜出 11 至 18 个，在 CEC'2013 的 15 个函数中胜出 8 至 13 个。此外还有收敛性与参数敏感性分析作为补充。
 
 <p align="center">
-  <img src="figures/fig3a_rank_cec2010.png" alt="Average rank and Friedman rank on CEC'2010 LSGO" width="88%">
+  <img src="figures/fig3a_rank_cec2010.png" alt="CEC'2010 LSGO 上的平均排名与 Friedman 排名" width="88%">
   <br>
-  <em><b>Figure 3a.</b> Function-wise average rank and overall Friedman rank on the CEC'2010 LSGO suite. AELSO attains the lowest Friedman rank of the eleven algorithms.</em>
+  <em><b>图 3a.</b> CEC'2010 LSGO 套件上逐函数的平均排名与总体 Friedman 排名。AELSO 在十一个算法中取得最低的 Friedman 排名。</em>
 </p>
 
 <p align="center">
-  <img src="figures/fig3b_rank_cec2013.png" alt="Average rank and Friedman rank on CEC'2013 LSGO" width="88%">
+  <img src="figures/fig3b_rank_cec2013.png" alt="CEC'2013 LSGO 上的平均排名与 Friedman 排名" width="88%">
   <br>
-  <em><b>Figure 3b.</b> The same ranking analysis on the CEC'2013 LSGO suite, where AELSO again obtains the best overall Friedman rank.</em>
-</p>
-
-<br>
-
-## 6. Applications beyond benchmarks
-
-Benchmark suites measure solution quality, not whether an optimizer survives contact with a real model. AELSO was therefore embedded into two application problems whose decision structures differ substantially from each other.
-
-**Profile hidden Markov model fitting for sequence alignment.** Here the optimizer searches the transition and emission parameters of the model; each candidate vector is decoded into a valid parameter set, and alignment quality is scored through Viterbi inference. The search space is continuous after encoding but the objective is defined through a discrete decoding procedure, so the optimizer must cope with a noisy, non-separable response surface.
-
-**Kapur-entropy multilevel thresholding for image segmentation.** Here each candidate is an ascending vector of gray-level thresholds, repaired to feasibility and scored by Kapur entropy over the image histogram. The difficulty grows with the threshold count, and the objective becomes progressively more rugged as more thresholds are admitted.
-
-Both applications were run under a fixed protocol with repeated independent trials, and segmentation quality was additionally assessed with standard image-quality indices (PSNR, MSE, MAE, SSIM and FSIM). The takeaway is deliberately scoped: the experiments establish that AELSO can be *embedded* into these two distinct black-box models and produce stable, usable results — not that it dominates every specialized solver in either domain.
-
-<p align="center">
-  <img src="figures/fig4_segmentation.png" alt="Multilevel thresholding segmentation results at increasing threshold counts" width="92%">
-  <br>
-  <em><b>Figure 4.</b> Kapur-entropy multilevel thresholding of the Cameraman test image. As the threshold count K grows from 2 to 100, the segmentation retains progressively finer gray-level structure, matching the reported gains in objective entropy and image-quality indices.</em>
+  <em><b>图 3b.</b> CEC'2013 LSGO 套件上的同一套排名分析，AELSO 再次取得最优的总体 Friedman 排名。</em>
 </p>
 
 <br>
 
-## 7. Source code
+## 6. 基准之外的应用
 
-The reference implementation is a single self-contained MATLAB function. It has no external dependencies beyond the objective function handle supplied by the caller, and it reproduces the CEC'2010 / CEC'2013 configuration reported in the manuscript.
+基准套件衡量的是解的质量，而不是优化器能否在真实模型中存活。因此 AELSO 被嵌入到两个决策结构差异很大的应用问题中。
+
+**面向序列比对的轮廓隐马尔可夫模型参数拟合。** 这里优化器搜索模型的转移与发射参数；每个候选向量都被解码为一组合法参数，比对质量通过 Viterbi 推断打分。编码之后搜索空间是连续的，但目标函数经由一个离散解码过程定义，因此优化器必须应对一个带噪且不可分的响应曲面。
+
+**基于 Kapur 熵的图像多阈值分割。** 这里每个候选解是一组递增的灰度阈值，先被修复到可行域，再由图像直方图上的 Kapur 熵打分。难度随阈值个数增加而上升，且随着阈值数量增多，目标函数变得越来越崎岖。
+
+两个应用都在固定协议下进行了多次独立重复实验，分割质量还额外用标准图像质量指标（PSNR、MSE、MAE、SSIM 与 FSIM）评估。结论的边界是刻意收窄的：实验说明的是 AELSO 能够被*嵌入*到这两个截然不同的黑箱模型中并给出稳定可用的结果，而不是说它能在这两个领域击败所有专用求解器。
+
+<p align="center">
+  <img src="figures/fig4_segmentation.png" alt="不同阈值个数下的多阈值分割结果" width="92%">
+  <br>
+  <em><b>图 4.</b> 对 Cameraman 测试图像进行 Kapur 熵多阈值分割。当阈值个数 K 从 2 增加到 100 时，分割结果保留了越来越精细的灰度结构，与所报告的目标熵和图像质量指标增益一致。</em>
+</p>
+
+<br>
+
+## 7. 源代码
+
+参考实现是一个自包含的 MATLAB 函数。除调用方提供的目标函数句柄外没有任何外部依赖，并且复现了论文中所报告的 CEC'2010 / CEC'2013 实验配置。
 
 ```matlab
-% Caller supplies the objective handle and the problem definition.
-% MaxFEs and the population size are pinned inside the file to the
-% benchmark configuration used in the paper.
+% 调用方提供目标函数句柄与问题定义。
+% MaxFEs 与种群规模在文件内部被固定为论文所用的基准配置。
 [gbestX, gbestfitness, gbesthistory] = AELSO( ...
     [], 1200, 1000, 100, -100, 0.2*100, -0.2*100, ...
     [], @myObjective, 1, false);
 ```
 
 <details>
-<summary><b>Click to expand the full <code>AELSO.m</code> source (with inline documentation)</b></summary>
+<summary><b>点击展开完整的 <code>AELSO.m</code> 源码（含逐段注释）</b></summary>
 
 <br>
 
@@ -494,9 +493,9 @@ end
 
 <br>
 
-## 8. Citation
+## 8. 引用方式
 
-If AELSO is useful in your research, please cite this work:
+如果 AELSO 对你的研究有帮助，请引用本工作：
 
 ```bibtex
 @misc{wang2026aelso,
@@ -510,24 +509,24 @@ If AELSO is useful in your research, please cite this work:
 }
 ```
 
-A machine-readable [`CITATION.cff`](CITATION.cff) is included in this repository.
+本仓库同时提供机器可读的 [`CITATION.cff`](CITATION.cff)。
 
 <br>
 
-## 9. Acknowledgments
+## 9. 致谢
 
-This work is supported by the National Natural Science Foundation of China (Grant No. 62006144).
+本工作得到国家自然科学基金（项目编号 62006144）资助。
 
 <br>
 
-## 10. License and contact
+## 10. 许可与联系方式
 
-The implementation is released under the [MIT License](LICENSE). The figures in `figures/` are provided here for illustration; please cite the work when referring to them. See [NOTICE.md](NOTICE.md) for the terms that apply to the code and the figures.
+本实现以 [MIT 许可证](LICENSE) 发布。`figures/` 目录中的图片在此仅用于说明，引用时请注明本工作。代码与图片分别适用的条款见 [NOTICE.md](NOTICE.md)。
 
-Questions about the algorithm, the experiments, or the code are welcome at **[tsingke@sdnu.edu.cn](mailto:tsingke@sdnu.edu.cn)**.
+关于算法、实验或代码的问题，欢迎联系 **[tsingke@sdnu.edu.cn](mailto:tsingke@sdnu.edu.cn)**。
 
 <br>
 
 <div align="center">
-<sub>School of Computer Science and Artificial Intelligence, Shandong Normal University</sub>
+<sub>山东师范大学 计算机与人工智能学院</sub>
 </div>
