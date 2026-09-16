@@ -6,7 +6,7 @@
 
 <p><i>Full-dimensional large-scale optimization without variable decomposition</i></p>
 
-<p><img src="assets/badge-paradigm.svg" alt="decomposition-free">&nbsp;<img src="assets/badge-benchmarks.svg" alt="CEC benchmarks">&nbsp;<img src="assets/badge-matlab.svg" alt="MATLAB">&nbsp;<img src="assets/badge-license.svg" alt="MIT license">&nbsp;<img src="assets/badge-status.svg" alt="under review"></p>
+<p><img src="assets/badge-paradigm.svg" alt="decomposition-free">&nbsp;<img src="assets/badge-benchmarks.svg" alt="CEC benchmarks">&nbsp;<img src="assets/badge-matlab.svg" alt="MATLAB">&nbsp;<img src="assets/badge-license.svg" alt="MIT license"></p>
 
 </div>
 
@@ -18,7 +18,6 @@
 | **Authors** | Xiaolin Wang, **Qingke Zhang**\*, Guanghui Zhou, Lei Lyu, Junqing Li |
 | **Affiliation** | <sup>1</sup> School of Computer Science and Artificial Intelligence, Shandong Normal University, Jinan 250358, China<br><sup>2</sup> School of Mathematics, Yunnan Normal University, Kunming 650500, China |
 | **Corresponding author** | Prof. Qingke Zhang — [tsingke@sdnu.edu.cn](mailto:tsingke@sdnu.edu.cn) |
-| **Status** | Under review at *Applied Mathematics and Computation* (Elsevier) |
 
 <br>
 
@@ -470,17 +469,17 @@ end
 
 ## 7. Citation
 
-If AELSO is useful in your research, please cite the manuscript:
+If AELSO is useful in your research, please cite this work:
 
 ```bibtex
-@article{wang2026aelso,
-  title   = {AELSO: Adaptive Equilibrium Learning Swarm Optimizer for
-             Large-Scale Global Optimization and Engineering Applications},
-  author  = {Wang, Xiaolin and Zhang, Qingke and Zhou, Guanghui and
-             Lyu, Lei and Li, Junqing},
-  journal = {Applied Mathematics and Computation},
-  year    = {2026},
-  note    = {Manuscript under review}
+@misc{wang2026aelso,
+  title        = {AELSO: Adaptive Equilibrium Learning Swarm Optimizer for
+                  Large-Scale Global Optimization and Engineering Applications},
+  author       = {Wang, Xiaolin and Zhang, Qingke and Zhou, Guanghui and
+                  Lyu, Lei and Li, Junqing},
+  year         = {2026},
+  howpublished = {Reference implementation and project documentation},
+  url          = {https://github.com/tsingke/AELSO}
 }
 ```
 
