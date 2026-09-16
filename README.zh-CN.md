@@ -39,9 +39,8 @@
 5. [基准实验评估](#5-基准实验评估)
 6. [应用案例研究](#6-应用案例研究)
 7. [参考实现](#7-参考实现)
-8. [引用方式](#8-引用方式)
-9. [资助与致谢](#9-资助与致谢)
-10. [许可与联系方式](#10-许可与联系方式)
+8. [资助与致谢](#8-资助与致谢)
+
 
 
 
@@ -485,34 +484,10 @@ end
 </details>
 
 
-## 8. 引用方式
 
-如果 AELSO 对你的研究有帮助，请引用本工作：
+## 8. 资助与致谢
 
-```bibtex
-@misc{wang2026aelso,
-  title        = {AELSO: Adaptive Equilibrium Learning Swarm Optimizer for
-                  Large-Scale Global Optimization and Engineering Applications},
-  author       = {Wang, Xiaolin and Zhang, Qingke and Zhou, Guanghui and
-                  Lyu, Lei and Li, Junqing},
-  year         = {2026},
-  howpublished = {Reference implementation and project documentation},
-  url          = {https://github.com/tsingke/AELSO}
-}
-```
-
-本仓库同时提供机器可读的 [`CITATION.cff`](CITATION.cff)。
-
-
-
-## 9. 资助与致谢
-
-本工作得到国家自然科学基金（项目编号 62006144）资助。
-
-
-## 10. 许可与联系方式
-
-本实现以 [MIT 许可证](LICENSE) 发布。`figures/` 目录中的图片在此仅用于说明，引用时请注明本工作。代码与图片分别适用的条款见 [NOTICE.md](NOTICE.md)。
+本论文研究工作得到国家自然科学基金（项目编号 62006144）资助。
 
 关于算法、实验或代码的问题，欢迎联系 **[tsingke@sdnu.edu.cn](mailto:tsingke@sdnu.edu.cn)**。
 
