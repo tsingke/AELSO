@@ -38,9 +38,7 @@
 5. [Benchmark evaluation](#5-benchmark-evaluation)
 6. [Application case studies](#6-application-case-studies)
 7. [Reference implementation](#7-reference-implementation)
-8. [How to cite](#8-how-to-cite)
-9. [Funding and acknowledgments](#9-funding-and-acknowledgments)
-10. [License and contact](#10-license-and-contact)
+8. [Funding and acknowledgments](#8-funding-and-acknowledgments)
 
 
 ## 1. Background and motivation
@@ -483,37 +481,12 @@ end
 
 </details>
 
-<br>
-
-## 8. How to cite
-
-If AELSO is useful in your research, please cite this work:
-
-```bibtex
-@misc{wang2026aelso,
-  title        = {AELSO: Adaptive Equilibrium Learning Swarm Optimizer for
-                  Large-Scale Global Optimization and Engineering Applications},
-  author       = {Wang, Xiaolin and Zhang, Qingke and Zhou, Guanghui and
-                  Lyu, Lei and Li, Junqing},
-  year         = {2026},
-  howpublished = {Reference implementation and project documentation},
-  url          = {https://github.com/tsingke/AELSO}
-}
-```
-
-A machine-readable [`CITATION.cff`](CITATION.cff) is included in this repository.
 
 
-## 9. Funding and acknowledgments
+## 8. Funding and acknowledgments
 
 This work is supported by the National Natural Science Foundation of China (Grant No. 62006144).
 
-
-## 10. License and contact
-
-The implementation is released under the [MIT License](LICENSE). The figures in `figures/` are provided here for illustration; please cite the work when referring to them. See [NOTICE.md](NOTICE.md) for the terms that apply to the code and the figures.
-
-Questions about the algorithm, the experiments, or the code are welcome at **[tsingke@sdnu.edu.cn](mailto:tsingke@sdnu.edu.cn)**.
 
 
 <div align="center">
