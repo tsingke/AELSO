@@ -485,7 +485,7 @@ end
 
 ## 8. Funding and acknowledgments
 
-This work is supported by the National Natural Science Foundation of China (Grant No. 62006144).
+This work is supported by the National Natural Science Foundation of China (Grant No. 62006144). The author sincerely appreciates the Editor and all the reviewers for their valuable time, insightful comments, and efforts devoted to reviewing and improving this manuscript.
 
 
 
