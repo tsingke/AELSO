@@ -8,7 +8,7 @@
 
 <p><img src="assets/badge-paradigm.svg" alt="decomposition-free">&nbsp;<img src="assets/badge-benchmarks.svg" alt="CEC benchmarks">&nbsp;<img src="assets/badge-matlab.svg" alt="MATLAB">&nbsp;<img src="assets/badge-license.svg" alt="MIT license"></p>
 
-<p><b>English</b> &nbsp;·&nbsp; <a href="README.zh-CN.md">简体中文</a></p>
+
 
 </div>
 
