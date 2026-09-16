@@ -12,7 +12,6 @@
 
 </div>
 
-<br>
 
 | | |
 |:--|:--|
@@ -21,7 +20,6 @@
 | **Affiliation** | <sup>1</sup> School of Computer Science and Artificial Intelligence, Shandong Normal University, Jinan 250358, China<br><sup>2</sup> School of Mathematics, Yunnan Normal University, Kunming 650500, China |
 | **Corresponding author** | Prof. Qingke Zhang — [tsingke@sdnu.edu.cn](mailto:tsingke@sdnu.edu.cn) |
 
-<br>
 
 **Highlights**
 
@@ -30,7 +28,6 @@
 - Refinement and propagation ordered inside one loop, so the two stages reinforce instead of compete.
 - Best overall Friedman rank on both CEC'2010 and CEC'2013 (11 algorithms, 30 independent runs each).
 
-<br>
 
 ## Contents
 
@@ -45,7 +42,6 @@
 9. [Funding and acknowledgments](#9-funding-and-acknowledgments)
 10. [License and contact](#10-license-and-contact)
 
-<br>
 
 ## 1. Background and motivation
 
@@ -57,13 +53,13 @@ A large part of the literature answers this by **decomposing** the problem — s
 
 AELSO takes the other branch. It keeps the search **full-dimensional** and attacks the dilemma from the opposite direction: rather than restructuring the problem, it regulates how reliable search information is produced and how far that information is allowed to travel through the population.
 
-<br>
+
 
 ## 2. Method overview
 
 AELSO runs two complementary mechanisms in sequence within every iteration and gives each of them a distinct job. The first squeezes extra precision out of the solutions that already lead the swarm. The second decides, individual by individual, who is entitled to learn, from whom, and how much — with the strictness of that decision relaxing or tightening as the evaluation budget is consumed. Refinement and redistribution therefore reinforce each other inside a single loop instead of competing for the same evaluations.
 
-<br>
+
 
 ## 3. Key contributions
 
@@ -77,7 +73,6 @@ Three design choices separate AELSO from the usual large-scale toolkit.
 
 Taken together, the three points describe a single shift: the algorithm's behaviour is set by the search as it unfolds, and its two stages are arranged so that the gains from one become the working material of the other.
 
-<br>
 
 ## 4. Framework and mechanisms
 
@@ -109,7 +104,6 @@ The two mechanisms are detailed separately below.
   <em><b>Figure 2b.</b> Dual-exemplar cooperative evolution. Rank decides whether an update is triggered; the learning candidate set and the two exemplars are then assembled and the velocity is updated.</em>
 </p>
 
-<br>
 
 ## 5. Benchmark evaluation
 
@@ -134,7 +128,6 @@ AELSO takes the best overall Friedman rank on both suites. The margin is not bui
   <em><b>Figure 3b.</b> The same ranking analysis on the CEC'2013 LSGO suite, where AELSO again obtains the best overall Friedman rank.</em>
 </p>
 
-<br>
 
 ## 6. Application case studies
 
@@ -152,7 +145,6 @@ Both applications were run under a fixed protocol with repeated independent tria
   <em><b>Figure 4.</b> Kapur-entropy multilevel thresholding of the Cameraman test image. As the threshold count K grows from 2 to 100, the segmentation retains progressively finer gray-level structure, matching the reported gains in objective entropy and image-quality indices.</em>
 </p>
 
-<br>
 
 ## 7. Reference implementation
 
@@ -170,7 +162,6 @@ The reference implementation is a single self-contained MATLAB function. It has 
 <details>
 <summary><b>Click to expand the full <code>AELSO.m</code> source (with inline documentation)</b></summary>
 
-<br>
 
 ```matlab
 function [gbestX, gbestfitness, gbesthistory] = AELSO(mainHandle, PopSize, D, xmax, xmin, vmax, vmin, MaxIter, fCalculation, FuncId, VisualSwitch)
@@ -512,13 +503,11 @@ If AELSO is useful in your research, please cite this work:
 
 A machine-readable [`CITATION.cff`](CITATION.cff) is included in this repository.
 
-<br>
 
 ## 9. Funding and acknowledgments
 
 This work is supported by the National Natural Science Foundation of China (Grant No. 62006144).
 
-<br>
 
 ## 10. License and contact
 
@@ -526,7 +515,6 @@ The implementation is released under the [MIT License](LICENSE). The figures in 
 
 Questions about the algorithm, the experiments, or the code are welcome at **[tsingke@sdnu.edu.cn](mailto:tsingke@sdnu.edu.cn)**.
 
-<br>
 
 <div align="center">
 <sub>School of Computer Science and Artificial Intelligence, Shandong Normal University</sub>
